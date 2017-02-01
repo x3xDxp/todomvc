@@ -9,12 +9,16 @@
 	<body>
 		<section id="todoapp">
 			<header id="header">
-				<h1>todos</h1>
-				<input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?" autofocus>
+            	<div class="topbar">
+                	<div class="flag flag-en" data-bind='click: toEnglish'></div>
+                	<div class="flag flag-id" data-bind='click: toBahasa'></div>
+                </div>
+				<h1 data-bind='text: glossary().title'>todos</h1>
+				<input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add, attr: { placeholder: glossary().placeholder }" autofocus>
 			</header>
 			<section id="main" data-bind="visible: todos().length">
 				<input id="toggle-all" data-bind="checked: allCompleted" type="checkbox">
-				<label for="toggle-all">Mark all as complete</label>
+				<label for="toggle-all" data-bind="text: glossary().markcomplete"></label>
 				<ul id="todo-list" data-bind="foreach: todos">
 					<li data-bind="css: { completed: completed, editing: editing }">
 						<div class="view">
@@ -29,15 +33,15 @@
 			<footer id="footer" data-bind="visible: completedCount() || remainingCount()">
 				<span id="todo-count">
 					<strong data-bind="text: remainingCount">0</strong>
-					<span data-bind="text: getLabel(remainingCount)"></span> left
+					<span data-bind="text: getLabel(remainingCount)"></span> <span data-bind="text: glossary().leftMark"></span>
 				</span>
-				<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed</button>
+				<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted, text: glossary().clearcompleted"></button>
 			</footer>
 		</section>
 		<footer id="info">
-			<p>Double-click to edit a todo</p>
-			<p>Written by <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>, <a href="http://knockmeout.net">Ryan Niemeyer</a> and <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+			<p data-bind="text: glossary().doubleclicktoedit"></p>
+			<p><span data-bind="text: glossary().writtenby"></span> <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>, <a href="http://knockmeout.net">Ryan Niemeyer</a> <span data-bind="text: glossary().and"></span> <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a></p>
+			<p><span data-bind="text: glossary().partof"></span> <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script data-main="js/main" src="node_modules/requirejs/require.js"></script>

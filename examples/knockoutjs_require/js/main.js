@@ -14,7 +14,7 @@ require([
 	'config/global',
 	'viewmodels/todo',
 	'extends/handlers'
-], function (ko, g, TodoViewModel) {
+], function (ko, g, TodoViewModel, LanguageViewModel) {
 	'use strict';
 
 	// var app_view = new AppView();

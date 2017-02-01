@@ -101,7 +101,10 @@ define([
 
 		// helper function to keep expressions out of markup
 		self.getLabel = function (count) {
-			return ko.utils.unwrapObservable(count) === 1 ? 'item' : 'items';
+			var itemMark = self.glossary().itemMark;
+			var itemsMark = self.glossary().itemsMark;
+						
+			return ko.utils.unwrapObservable(count) === 1 ? itemsMark : itemMark;
 		};
 
 		// internal computed observable that fires whenever anything changes in our todos
@@ -112,6 +115,48 @@ define([
 		}).extend({
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' }
 		}); // save at most twice per second
+		
+		// Glossary
+		var en = {
+			title: "todos",
+			placeholder: "What needs to be done?",
+			markcomplete: "Mark all as complete",
+			itemMark: "item",
+			itemsMark: "items",
+			leftMark: "left",
+			clearcompleted: "Clear completed",
+			doubleclicktoedit: "Double-click to edit a todo",
+			writtenby: "Written by",
+			and: "and",
+			partof: "Part of"
+		}
+		
+		var id = {
+			title: "tugas",
+			placeholder: "Apa yang harus dikerjakan?",
+			markcomplete: "Tandai semua sebagai selesai",
+			itemMark: "biji",
+			itemsMark: "biji",
+			leftMark: "lagi",
+			clearcompleted: "Hapus yang selesai",
+			doubleclicktoedit: "Klik ganda untuk mengubah todo",
+			writtenby: "Ditulis oleh",
+			and: "dan",
+			partof: "Bagian dari"
+		}
+		
+		// Language Observer
+		self.glossary = ko.observable( en );
+		
+		// Language Switcher
+		self.toEnglish = function() {
+			self.glossary( en );
+		}	
+		
+		self.toBahasa = function() {
+			self.glossary( id );
+		}
+		
 	};
 
 	return ViewModel;
